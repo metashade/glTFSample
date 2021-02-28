@@ -8,6 +8,7 @@
 // Windows Header Files:
 #include <windows.h>
 #include <windowsx.h>
+#include <shellapi.h>
 
 // C RunTime Header Files
 #include <malloc.h>
@@ -60,4 +61,7 @@ using namespace DirectX;
 
 
 #include "Widgets/wireframe.h"
+
+#include <boost/program_options.hpp>
+
 using namespace CAULDRON_DX12;
