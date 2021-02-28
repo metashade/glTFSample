@@ -512,8 +512,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
     const std::vector<std::string> args = po::split_winmain(lpCmdLine);
     po::store(po::command_line_parser(args).options(desc).run(), vm);
     po::notify(vm);
-
-    const auto metashadeOutDir = vm[metashadeOutDirKey].as<std::string>();
+    
+    const auto metashadeOutDir =
+        vm.count(metashadeOutDirKey) ? vm[metashadeOutDirKey].as<std::string>() : "";
 
     // create new DX sample
     return RunFramework(hInstance, lpCmdLine, nCmdShow, Width, Height, new GLTFSample(Name));
