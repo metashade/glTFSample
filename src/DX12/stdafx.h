@@ -63,5 +63,6 @@ using namespace DirectX;
 #include "Widgets/wireframe.h"
 
 #include <boost/program_options.hpp>
+#include <filesystem>
 
 using namespace CAULDRON_DX12;

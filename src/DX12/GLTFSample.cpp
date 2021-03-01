@@ -499,22 +499,26 @@ int WINAPI WinMain(HINSTANCE hInstance,
     uint32_t Height = 720;
 
     namespace po = boost::program_options;
+    namespace fs = std::filesystem;
 
     constexpr char metashadeOutDirKey[] = "metashade-out-dir";
 
-    po::options_description desc;
-    desc.add_options()
+    po::options_description poOptionsDesc;
+    poOptionsDesc.add_options()
         ("help", "Produce this help message")
-        (metashadeOutDirKey, po::value<std::string>(), "Path to the output directory of the Mateshade generator.")
+        (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Mateshade generator.")
     ;
 
-    po::variables_map vm;
+    po::variables_map poVarMap;
     const std::vector<std::string> args = po::split_winmain(lpCmdLine);
-    po::store(po::command_line_parser(args).options(desc).run(), vm);
-    po::notify(vm);
-    
-    const auto metashadeOutDir =
-        vm.count(metashadeOutDirKey) ? vm[metashadeOutDirKey].as<std::string>() : "";
+    po::store(po::command_line_parser(args).options(poOptionsDesc).run(), poVarMap);
+    po::notify(poVarMap);
+
+    fs::path metashadeOutDir;
+    if (poVarMap.count(metashadeOutDirKey))
+    {
+        metashadeOutDir = poVarMap[metashadeOutDirKey].as<fs::path>();
+    }
 
     // create new DX sample
     return RunFramework(hInstance, lpCmdLine, nCmdShow, Width, Height, new GLTFSample(Name));
