@@ -10,6 +10,8 @@ foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
     set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_HOME_DIRECTORY}/bin )
 endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
+set(CMAKE_CXX_STANDARD 17)
+
 # reference libs used by both backends
 add_subdirectory(libs/cauldron)
 
