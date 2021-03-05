@@ -23,7 +23,9 @@
 
 const bool VALIDATION_ENABLED = false;
 
-GLTFSample::GLTFSample(LPCSTR name) : FrameworkWindows(name)
+GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir)
+    : FrameworkWindows(name)
+    , m_metashadeOutDir(metashadeOutDir)
 {
     m_lastFrameTime = MillisecondsNow();
     m_time = 0;
@@ -63,7 +65,7 @@ void GLTFSample::OnCreate(HWND hWnd)
 
     // Create a instance of the renderer and initialize it, we need to do that for each GPU
     //
-    m_Node = new SampleRenderer();
+    m_Node = new SampleRenderer(m_metashadeOutDir);
     m_Node->OnCreate(&m_device, &m_swapChain);
 
     // init GUI (non gfx stuff)
@@ -521,6 +523,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
     }
 
     // create new DX sample
-    return RunFramework(hInstance, lpCmdLine, nCmdShow, Width, Height, new GLTFSample(Name));
+    return RunFramework(
+        hInstance, lpCmdLine, nCmdShow, Width, Height,
+        new GLTFSample(Name, metashadeOutDir)
+    );
 }
 

@@ -253,7 +253,7 @@ int SampleRenderer::LoadScene(GLTFCommon *pGLTFCommon, int stage)
         Profile p("m_gltfPBR->OnCreate");
 
         // same thing as above but for the PBR pass
-        m_gltfPBR = new GltfPbrPass();
+        m_gltfPBR = m_metashadeOutDir.empty() ? new GltfPbrPass() : new MetashadeGltfPbrPass(m_metashadeOutDir);
         m_gltfPBR->OnCreate(
             m_pDevice,
             &m_UploadHeap,

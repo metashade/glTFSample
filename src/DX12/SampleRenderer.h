@@ -31,6 +31,10 @@ using namespace CAULDRON_DX12;
 class SampleRenderer
 {
 public:
+    explicit SampleRenderer(const std::filesystem::path& metashadeOutDir)
+        : m_metashadeOutDir(metashadeOutDir)
+    {}
+
     struct Spotlight
     {
         Camera light;
@@ -70,13 +74,13 @@ public:
     void OnRender(State *pState, SwapChain *pSwapChain);
 
 private:
-    Device                         *m_pDevice;
+    Device                         *m_pDevice = nullptr;
 
-    uint32_t                        m_Width;
-    uint32_t                        m_Height;
+    uint32_t                        m_Width = 0;
+    uint32_t                        m_Height = 0;
 
-    D3D12_VIEWPORT                  m_viewport;
-    D3D12_RECT                      m_rectScissor;
+    D3D12_VIEWPORT                  m_viewport = { 0 };
+    D3D12_RECT                      m_rectScissor = { 0 };
     
     // Initialize helper classes
     ResourceViewHeaps               m_resourceViewHeaps;
@@ -88,10 +92,10 @@ private:
 
 
     //gltf passes
-    GLTFTexturesAndBuffers         *m_pGLTFTexturesAndBuffers;
-    GltfPbrPass                    *m_gltfPBR;
-    GltfDepthPass                  *m_gltfDepth;
-    GltfBBoxPass                   *m_gltfBBox;
+    GLTFTexturesAndBuffers         *m_pGLTFTexturesAndBuffers = nullptr;;
+    GltfPbrPass                    *m_gltfPBR = nullptr;
+    GltfDepthPass                  *m_gltfDepth = nullptr;
+    GltfBBoxPass                   *m_gltfBBox = nullptr;
 
     // effects
     Bloom                           m_bloom;
@@ -131,5 +135,7 @@ private:
     WireframeBox                    m_wireframeBox;
 
     std::vector<TimeStamp>          m_TimeStamps;
+
+    const std::filesystem::path     m_metashadeOutDir;
 };
 
