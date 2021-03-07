@@ -17,6 +17,9 @@
 #include <vector>
 #include <fstream>
 
+#include <boost/program_options.hpp>
+#include <filesystem>
+
 #include "../../libs/d3d12x/d3dx12.h"
 
 // we are using DirectXMath
@@ -59,10 +62,6 @@ using namespace DirectX;
 #include "GLTF/GltfBBoxPass.h"
 #include "GLTF/GltfDepthPass.h"
 
-
 #include "Widgets/wireframe.h"
-
-#include <boost/program_options.hpp>
-#include <filesystem>
 
 using namespace CAULDRON_DX12;
