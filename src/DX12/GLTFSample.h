@@ -38,7 +38,7 @@
 class GLTFSample : public FrameworkWindows
 {
 public:
-    GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir);
+    GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir, bool bValidationEnabled);
     void OnCreate(HWND hWnd);
     void OnDestroy();
     void OnRender();
@@ -70,4 +70,5 @@ private:
     bool                  m_bPlay;
 
     const std::filesystem::path m_metashadeOutDir;
+    const bool  m_bValidationEnabled;
 };

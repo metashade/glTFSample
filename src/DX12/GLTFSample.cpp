@@ -21,11 +21,10 @@
 
 #include "GLTFSample.h"
 
-const bool VALIDATION_ENABLED = false;
-
-GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir)
+GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir, bool bValidationEnabled)
     : FrameworkWindows(name)
     , m_metashadeOutDir(metashadeOutDir)
+    , m_bValidationEnabled(bValidationEnabled)
 {
     m_lastFrameTime = MillisecondsNow();
     m_time = 0;
@@ -51,7 +50,7 @@ void GLTFSample::OnCreate(HWND hWnd)
 
     // Create Device
     //
-    m_device.OnCreate("myapp", "myEngine", VALIDATION_ENABLED, hWnd);
+    m_device.OnCreate("myapp", "myEngine", m_bValidationEnabled, hWnd);
     m_device.CreatePipelineCache();
 
     //init the shader compiler
@@ -503,12 +502,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
     namespace po = boost::program_options;
     namespace fs = std::filesystem;
 
-    constexpr char metashadeOutDirKey[] = "metashade-out-dir";
+    constexpr char
+        metashadeOutDirKey[] = "metashade-out-dir",
+        dx12ValidationKey[] = "dx12-validation";
 
     po::options_description poOptionsDesc;
     poOptionsDesc.add_options()
         ("help", "Produce this help message")
         (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Mateshade generator.")
+        (dx12ValidationKey, "Enable DX12 debug validation")
     ;
 
     po::variables_map poVarMap;
@@ -525,7 +527,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
     // create new DX sample
     return RunFramework(
         hInstance, lpCmdLine, nCmdShow, Width, Height,
-        new GLTFSample(Name, metashadeOutDir)
+        new GLTFSample(
+            Name,
+            metashadeOutDir,
+            poVarMap.count(dx12ValidationKey) > 0
+        )
     );
 }
 
