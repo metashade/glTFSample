@@ -509,7 +509,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
     po::options_description poOptionsDesc;
     poOptionsDesc.add_options()
         ("help", "Produce this help message")
-        (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Mateshade generator.")
+        (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Metashade generator.")
         (dx12ValidationKey, "Enable DX12 debug validation")
     ;
 

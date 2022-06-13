@@ -19,7 +19,7 @@ To build glTFSample, you must first install the following tools:
 - [Vulkan SDK 1.1.106](https://www.lunarg.com/vulkan-sdk/) - not required by this fork.
 - [boost](https://www.boost.org/) 1.75.0 or newer - only required by this fork. Boost is only used for some utilities which are not related to Metashade.
 
-Then follow the next steps:
+### Build steps
 
 1) Get the media files from the separate repo:
     ```
@@ -39,4 +39,11 @@ Then follow the next steps:
     > cmake ..\.. -DGFX_API=DX12 -DBOOST_ROOT=C:\path\to\boost\boost_1_75_0
     ```
 
-4) Open the generated solution, compile and run.
+4) Build the generated solution.
+
+# Command-line interface
+
+```
+--metashade-out-dir Path to the output directory of the Metashade generator.
+--dx12-validation   Enable DX12 debug validation.
+```
