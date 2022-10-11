@@ -37,6 +37,10 @@ using namespace CAULDRON_DX12;
 class Renderer
 {
 public:
+    explicit Renderer(const std::filesystem::path& metashadeOutDir)
+        : m_metashadeOutDir(metashadeOutDir)
+    {}
+
     void OnCreate(Device* pDevice, SwapChain *pSwapChain, float FontSize);
     void OnDestroy();
 
@@ -131,4 +135,6 @@ private:
     std::string                     m_pScreenShotName = "";
     SaveTexture                     m_SaveTexture;
     AsyncPool                       m_AsyncPool;
+
+    const std::filesystem::path     m_metashadeOutDir;
 };

@@ -8,6 +8,7 @@
 // Windows Header Files:
 #include <windows.h>
 #include <windowsx.h>
+#include <shellapi.h>
 
 // C RunTime Header Files
 #include <malloc.h>
@@ -15,6 +16,9 @@
 #include <mutex>
 #include <vector>
 #include <fstream>
+
+#include <boost/program_options.hpp>
+#include <filesystem>
 
 #include "../../libs/d3d12x/d3dx12.h"
 
@@ -65,6 +69,5 @@
 #include "PostProc/ShadowResolvePass.h"
 
 #include "Widgets/wireframe.h"
-
 
 using namespace CAULDRON_DX12;

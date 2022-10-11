@@ -28,7 +28,8 @@
 class GLTFSample : public FrameworkWindows
 {
 public:
-    GLTFSample(LPCSTR name);
+    GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir, bool bValidationEnabled);
+
     void OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint32_t* pHeight) override;
     void OnCreate() override;
     void OnDestroy() override;
@@ -66,4 +67,7 @@ private:
     int                         m_activeCamera;
 
     bool                        m_bPlay;
+
+    const std::filesystem::path m_metashadeOutDir;
+    const bool  m_bValidationEnabled;
 };
