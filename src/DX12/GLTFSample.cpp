@@ -490,7 +490,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     // create new DX sample
     return RunFramework(
-        hInstance, lpCmdLine, nCmdShow
+        hInstance, lpCmdLine, nCmdShow,
         new GLTFSample(
             Name,
             metashadeOutDir,
