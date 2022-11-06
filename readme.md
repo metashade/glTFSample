@@ -15,25 +15,20 @@ Please note that the original [glTFSample](https://github.com/GPUOpen-LibrariesA
 
 To build glTFSample, you must first install the following tools:
 
-- [CMake 3.4](https://cmake.org/download/)
+- [CMake 3.16](https://cmake.org/download/)
 - [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
-- [Windows 10 SDK 10.0.17763.0](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
-- [Vulkan SDK 1.1.106](https://www.lunarg.com/vulkan-sdk/) - not required by this fork.
+- [Windows 10 SDK 10.0.18362.0](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
+- [Vulkan SDK 1.2.131.2](https://www.lunarg.com/vulkan-sdk/)
 - [boost](https://www.boost.org/) 1.75.0 or newer - only required by this fork. Boost is only used for convenience and is not required by Metashade itself.
 
 ### Build steps
 
-1) Get the media files from the separate repo:
-    ```
-    > git clone https://github.com/GPUOpen-LibrariesAndSDKs/Cauldron-Media.git
-    ```
-
-2) In the same directory, clone this repo and branch together with the submodule of our [fork of the Cauldron framework](https://github.com/ppenenko/Cauldron)):
+1) Clone the repo with its submodules, including our [fork of the Cauldron framework](https://github.com/ppenenko/Cauldron)):
     ```
     > git clone https://github.com/ppenenko/glTFSample.git --recurse-submodules --branch metashade_demo
     ```
 
-3) Generate the DX12-specific solution. Unlike the original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample) which uses [GenerateSolutions.bat](build/GenerateSolutions.bat), we have to run CMake manually:
+2) Generate the DX12-specific solution. Unlike the original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample) which uses [GenerateSolutions.bat](build/GenerateSolutions.bat), we have to run CMake manually:
     ```
     > cd glTFSample\build
     > mkdir DX12
@@ -41,7 +36,7 @@ To build glTFSample, you must first install the following tools:
     > cmake ..\.. -DGFX_API=DX12 -DBOOST_ROOT=C:\path\to\boost\boost_1_75_0
     ```
 
-4) Build the generated solution.
+3) Build the generated solution.
 
 # Command-line interface
 

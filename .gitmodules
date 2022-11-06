@@ -1,4 +1,7 @@
 [submodule "libs/cauldron"]
 	path = libs/cauldron
-	url = https://github.com/ppenenko/Cauldron.git
+	url = ../Cauldron.git
 	branch = metashade_demo
+[submodule "media/Cauldron-Media"]
+	path = media/Cauldron-Media
+	url = ../Cauldron-Media.git

@@ -1,21 +1,18 @@
-project (GLTFSample_DX12)
-
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../common.cmake)
-
-set(sources 
+set(sources
     GLTFSample.cpp
     GLTFSample.h
-    SampleRenderer.cpp
-    SampleRenderer.h
+    Renderer.cpp
+    Renderer.h
+    UI.cpp
+    UI.h
     stdafx.cpp
-    stdafx.h)
-    
-source_group("Sources"            FILES ${sources})    
-    
-add_executable(${PROJECT_NAME} WIN32 ${sources}) 
-target_link_libraries (${PROJECT_NAME} LINK_PUBLIC Framework_DX12 ImGUI amd_ags DXC d3dcompiler D3D12)
+    stdafx.h
+    dpiawarescaling.manifest)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_HOME_DIRECTORY}/bin")
+source_group("Sources" FILES ${sources})
+source_group("Icon"    FILES ${icon_src}) # defined in top-level CMakeLists.txt
 
-addManifest(${PROJECT_NAME})
+add_executable(GLTFSample_DX12 WIN32 ${sources} ${common} ${icon_src})
+target_link_libraries(GLTFSample_DX12 LINK_PUBLIC GLTFSample_Common Cauldron_DX12 ImGUI amd_ags d3dcompiler D3D12)
 
+set_target_properties(GLTFSample_DX12 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_HOME_DIRECTORY}/bin" DEBUG_POSTFIX "d")

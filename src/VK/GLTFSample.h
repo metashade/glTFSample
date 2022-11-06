@@ -1,6 +1,6 @@
 // AMD SampleVK sample code
 // 
-// Copyright(c) 2018 Advanced Micro Devices, Inc.All rights reserved.
+// Copyright(c) 2020 Advanced Micro Devices, Inc.All rights reserved.
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files(the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
@@ -18,54 +18,52 @@
 // THE SOFTWARE.
 #pragma once
 
-#include "SampleRenderer.h"
+#include "base/FrameworkWindows.h"
+#include "Renderer.h"
+#include "UI.h"
 
-//
-// This is the main class, it manages the state of the sample and does all the high level work without touching the GPU directly.
-// This class uses the GPU via the the SampleRenderer class. We would have a SampleRenderer instance for each GPU.
-//
-// This class takes care of:
-//
-//    - loading a scene (just the CPU data)
-//    - updating the camera
-//    - keeping track of time
-//    - handling the keyboard
-//    - updating the animation
-//    - building the UI (but do not renders it)
-//    - uses the SampleRenderer to update all the state to the GPU and do the rendering
-//
+// This class encapsulates the 'application' and is responsible for handling window events and scene updates (simulation)
+// Rendering and rendering resource management is done by the Renderer class
 
 class GLTFSample : public FrameworkWindows
 {
 public:
     GLTFSample(LPCSTR name);
-    void OnCreate(HWND hWnd);
-    void OnDestroy();
-    void OnRender();
-    bool OnEvent(MSG msg);
-    void OnResize(uint32_t Width, uint32_t Height);
-    void SetFullScreen(bool fullscreen);
+    void OnParseCommandLine(LPSTR lpCmdLine, uint32_t* pWidth, uint32_t* pHeight) override;
+	void OnCreate() override;
+    void OnDestroy() override;
+    void OnRender() override;
+    bool OnEvent(MSG msg) override;
+    void OnResize(bool resizeRender) override;
+    void OnUpdateDisplay() override;
+
+    void BuildUI();
+    void LoadScene(int sceneIndex);
+    
+    void OnUpdate();
+
+    void HandleInput(const ImGuiIO& io);
+    void UpdateCamera(Camera& cam, const ImGuiIO& io);
     
 private:
-    Device                m_device;
-    SwapChain             m_swapChain;
 
-    DisplayModes              m_currentDisplayMode;
-    std::vector<DisplayModes> m_displayModesAvailable;
-    std::vector<const char *> m_displayModesNamesAvailable;
+    bool                        m_bIsBenchmarking;
+    
+    GLTFCommon                 *m_pGltfLoader = NULL;
+    bool                        m_loadingScene = false;
 
-    GLTFCommon           *m_pGltfLoader = NULL;
+    Renderer*                   m_pRenderer = NULL;
+    UIState                     m_UIState;
+    float                       m_fontSize;
+    Camera                      m_camera;
 
-    SampleRenderer       *m_Node = NULL;
-    SampleRenderer::State m_state;
+    float                       m_time; // Time accumulator in seconds, used for animation.
 
-    float                 m_distance;
-    float                 m_roll;
-    float                 m_pitch;
+    // json config file
+    json                        m_jsonConfigFile;
+    std::vector<std::string>    m_sceneNames;
+    int                         m_activeScene;
+    int                         m_activeCamera;
 
-    float                 m_time;             // WallClock in seconds.
-    double                m_deltaTime;        // The elapsed time in milliseconds since the previous frame.
-    double                m_lastFrameTime;
-
-    bool                  m_bPlay;
+    bool                        m_bPlay;
 };
