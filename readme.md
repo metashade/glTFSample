@@ -28,15 +28,15 @@ To build glTFSample, you must first install the following tools:
     > git clone https://github.com/ppenenko/glTFSample.git --recurse-submodules --branch metashade_demo
     ```
 
-2) Generate the DX12-specific solution. Unlike the original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample) which uses [GenerateSolutions.bat](build/GenerateSolutions.bat), we have to run CMake manually:
+2) Generate the solutions. Please note that compared to the original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample), we need to make sure that CMake can find Boost:
     ```
     > cd glTFSample\build
-    > mkdir DX12
-    > cd DX12
-    > cmake ..\.. -DGFX_API=DX12 -DBOOST_ROOT=C:\path\to\boost\boost_1_75_0
+    > set BOOST_ROOT=C:\path\to\boost\boost_1_75_0
+    > GenerateSolutions.bat
     ```
+    
 
-3) Build the generated solution.
+3) Open the solutions in the VK or DX12 directories, compile and run. Please note that only the DX12 solution supports Metashade-generated shaders at the moment.
 
 # Command-line interface
 
