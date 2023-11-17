@@ -16,6 +16,9 @@
 #include <mutex>
 #include <fstream>
 
+#include <boost/program_options.hpp>
+#include <filesystem>
+
 #include "vulkan/vulkan.h"
 
 // Pull in math library
