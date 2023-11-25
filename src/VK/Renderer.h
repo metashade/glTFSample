@@ -35,6 +35,10 @@ struct UIState;
 class Renderer
 {
 public:
+    explicit Renderer(const std::filesystem::path& metashadeOutDir)
+        : m_metashadeOutDir(metashadeOutDir)
+    {}
+
     void OnCreate(Device *pDevice, SwapChain *pSwapChain, float FontSize);
     void OnDestroy();
 
@@ -120,5 +124,7 @@ private:
     std::vector<TimeStamp>          m_TimeStamps;
 
     AsyncPool                       m_AsyncPool;
+
+    const std::filesystem::path     m_metashadeOutDir;
 };
 
