@@ -35,6 +35,10 @@ struct UIState;
 class Renderer
 {
 public:
+    explicit Renderer(const std::filesystem::path& metashadeOutDir)
+        : m_metashadeOutDir(metashadeOutDir)
+    {}
+
     void OnCreate(Device *pDevice, SwapChain *pSwapChain, float FontSize);
     void OnDestroy();
 
@@ -54,10 +58,10 @@ public:
     void OnRender(const UIState* pState, const Camera& Cam, SwapChain* pSwapChain);
 
 private:
-    Device *m_pDevice;
+    Device *m_pDevice = nullptr;
 
-    uint32_t                        m_Width;
-    uint32_t                        m_Height;
+    uint32_t                        m_Width = 0;
+    uint32_t                        m_Height = 0;
 
     VkRect2D                        m_RectScissor;
     VkViewport                      m_Viewport;
@@ -72,10 +76,10 @@ private:
     GPUTimestamps                   m_GPUTimer;
 
     //gltf passes
-    GltfPbrPass                    *m_GLTFPBR;
-    GltfBBoxPass                   *m_GLTFBBox;
-    GltfDepthPass                  *m_GLTFDepth;
-    GLTFTexturesAndBuffers         *m_pGLTFTexturesAndBuffers;
+    GltfPbrPass                    *m_GLTFPBR = nullptr;
+    GltfBBoxPass                   *m_GLTFBBox = nullptr;
+    GltfDepthPass                  *m_GLTFDepth = nullptr;
+    GLTFTexturesAndBuffers         *m_pGLTFTexturesAndBuffers = nullptr;
 
     // effects
     Bloom                           m_Bloom;
@@ -120,5 +124,7 @@ private:
     std::vector<TimeStamp>          m_TimeStamps;
 
     AsyncPool                       m_AsyncPool;
+
+    const std::filesystem::path     m_metashadeOutDir;
 };
 

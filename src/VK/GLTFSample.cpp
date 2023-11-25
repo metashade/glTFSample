@@ -21,7 +21,9 @@
 #include <intrin.h>
 #include "GLTFSample.h"
 
-GLTFSample::GLTFSample(LPCSTR name) : FrameworkWindows(name)
+GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir)
+    : FrameworkWindows(name)
+    , m_metashadeOutDir(metashadeOutDir)
 {
     m_time = 0;
     m_bPlay = true;
@@ -118,7 +120,7 @@ void GLTFSample::OnCreate()
     CreateShaderCache();
 
     // Create a instance of the renderer and initialize it, we need to do that for each GPU
-    m_pRenderer = new Renderer();
+    m_pRenderer = new Renderer(m_metashadeOutDir);
     m_pRenderer->OnCreate(&m_device, &m_swapChain, m_fontSize);
 
     // init GUI (non gfx stuff)
@@ -467,6 +469,29 @@ int WINAPI WinMain(HINSTANCE hInstance,
 {
     LPCSTR Name = "SampleVK v1.4.5";
 
+    namespace po = boost::program_options;
+    namespace fs = std::filesystem;
+
+    constexpr char
+        metashadeOutDirKey[] = "metashade-out-dir";
+
+    po::options_description poOptionsDesc;
+    poOptionsDesc.add_options()
+        ("help", "Produce this help message")
+        (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Metashade generator.")
+        ;
+
+    po::variables_map poVarMap;
+    const std::vector<std::string> args = po::split_winmain(lpCmdLine);
+    po::store(po::command_line_parser(args).options(poOptionsDesc).run(), poVarMap);
+    po::notify(poVarMap);
+
+    fs::path metashadeOutDir;
+    if (poVarMap.count(metashadeOutDirKey))
+    {
+        metashadeOutDir = poVarMap[metashadeOutDirKey].as<fs::path>();
+    }
+
     // create new Vulkan sample
-    return RunFramework(hInstance, lpCmdLine, nCmdShow, new GLTFSample(Name));
+    return RunFramework(hInstance, lpCmdLine, nCmdShow, new GLTFSample(Name, metashadeOutDir));
 }
