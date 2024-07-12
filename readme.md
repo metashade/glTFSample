@@ -15,10 +15,10 @@ Please note that the original [glTFSample](https://github.com/GPUOpen-LibrariesA
 
 To build glTFSample, you must first install the following tools:
 
-- [CMake 3.16](https://cmake.org/download/)
-- [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
+- [CMake 3.16](https://cmake.org/download/) or newer.
+- [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/) or newer.
 - [Windows 10 SDK 10.0.18362.0](https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
-- [Vulkan SDK 1.2.131.2](https://www.lunarg.com/vulkan-sdk/)
+- [Vulkan SDK 1.2.131.2](https://www.lunarg.com/vulkan-sdk/), if using the Vulkan version of the sample.
 - [boost](https://www.boost.org/) 1.75.0 or newer - only required by this fork. Boost is only used for convenience and is not required by Metashade itself.
 
 ### Build steps
