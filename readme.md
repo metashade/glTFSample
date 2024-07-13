@@ -9,8 +9,6 @@ The original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample
 
 # Build Instructions
 
-Please note that the original [glTFSample](https://github.com/GPUOpen-LibrariesAndSDKs/glTFSample) generates separate VC++ solutions for DX12 and Vulkan, but this fork currently only supports DX12, the Vulkan solution can't be built.
-
 ### Prerequisites
 
 To build glTFSample, you must first install the following tools:
