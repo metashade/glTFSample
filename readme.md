@@ -21,7 +21,7 @@ To build glTFSample, you must first install the following tools:
 
 ## Build steps
 
-1) Clone the repo with its submodules, including our [fork of the Cauldron framework](https://github.com/ppenenko/Cauldron)):
+1) If you haven't done so in the parent repo, clone the repo with its submodules, including our [fork of the Cauldron framework](https://github.com/ppenenko/Cauldron):
     ```
     > git clone https://github.com/ppenenko/glTFSample.git --recurse-submodules --branch metashade_demo
     ```
@@ -32,7 +32,6 @@ To build glTFSample, you must first install the following tools:
     > set BOOST_ROOT=C:\path\to\boost\boost_1_75_0
     > GenerateSolutions.bat
     ```
-    
 
 3) Open the solutions in the VK or DX12 directories, compile and run. Please note that only the DX12 solution supports Metashade-generated shaders at the moment.
 
