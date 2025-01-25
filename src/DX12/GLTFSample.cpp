@@ -247,7 +247,9 @@ void GLTFSample::LoadScene(int sceneIndex)
 
     delete(m_pGltfLoader);
     m_pGltfLoader = new GLTFCommon();
-    if (m_pGltfLoader->Load(scene["directory"], scene["filename"]) == false)
+    if (
+        !m_pGltfLoader->Load(scene["directory"], scene["filename"], m_metashadeOutDir)
+    )
     {
         MessageBox(NULL, "The selected model couldn't be found, please check the documentation", "Cauldron Panic!", MB_ICONERROR);
         exit(0);
