@@ -22,10 +22,9 @@
 
 #include "GLTFSample.h"
 
-GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir, bool bValidationEnabled)
+GLTFSample::GLTFSample(LPCSTR name, const std::filesystem::path& metashadeOutDir)
     : FrameworkWindows(name)
     , m_metashadeOutDir(metashadeOutDir)
-    , m_bValidationEnabled(bValidationEnabled)
 {
     m_time = 0;
     m_bPlay = true;
@@ -468,15 +467,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
     namespace po = boost::program_options;
     namespace fs = std::filesystem;
 
-    constexpr char
-        metashadeOutDirKey[] = "metashade-out-dir",
-        dx12ValidationKey[] = "dx12-validation";
+    constexpr char metashadeOutDirKey[] = "metashade-out-dir";
 
     po::options_description poOptionsDesc;
     poOptionsDesc.add_options()
         ("help", "Produce this help message")
         (metashadeOutDirKey, po::value<fs::path>(), "Path to the output directory of the Metashade generator.")
-        (dx12ValidationKey, "Enable DX12 debug validation")
     ;
 
     po::variables_map poVarMap;
@@ -495,8 +491,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         hInstance, lpCmdLine, nCmdShow,
         new GLTFSample(
             Name,
-            metashadeOutDir,
-            poVarMap.count(dx12ValidationKey) > 0
+            metashadeOutDir
         )
     );
 }
